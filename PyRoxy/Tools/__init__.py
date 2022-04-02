@@ -15,7 +15,8 @@ class Random:
     latters: List[str] = list(ascii_letters)
     rand_str: Callable[[int], str] = lambda length=16: ''.join(
         Random.rand_choice(*Random.latters) for _ in range(length))
-    rand_char: Callable[[int], chr] = lambda length=16: chr((Random.rand_int(0, 1000)) for _ in range(length))
+    rand_char: Callable[[int], chr] = lambda length=16: "".join(
+        [chr(Random.rand_int(0, 1000)) for _ in range(length)])
     rand_ipv4: Callable[[], str] = lambda: inet_ntoa(
         data_pack('>I', Random.rand_int(1, 0xffffffff)))
     rand_ipv6: Callable[[], str] = lambda: inet_ntop(
@@ -48,7 +49,7 @@ class Patterns:
         "^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]"
         "{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$")
     IP = compile("(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")
-    IPPort = compile("^((?:\d+.){3}\d+):(\d{1,5})$")
+    IPPort = compile("^((?:\d{1,3}\.){3}\d{1,3}):(\d{1,5})$")
     Proxy = compile(
         r"^(?:\[|)(?:\s+|)((?:socks[45]|http(?:s|)))(?:[]|]|)(?:\s+|)(?:](?:\s+|)|\|(?:\s+|)|://(?:\s+|)|)"
         r"((?:(?:\d+.){3}\d+|\S+[.]\w{2,3}))"
